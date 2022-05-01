@@ -1,0 +1,37 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+    background: url(../img/Fundo_academia.jpg) center center/100% 100% no-repeat fixed;
+}
+
+.cabecalho {
+  background-color: black;
+  opacity: 65%;
+}
+
+.cadastro {
+  border-radius: 8px;
+}
+
+.bt-lixo {
+    color: rgb(233, 110, 110);
+}
+
+.bt-lapis {
+    color: rgb(84, 201, 84);
+}
+
+.mainFooter {
+  background-color: black;
+  opacity: 65%;
+}
