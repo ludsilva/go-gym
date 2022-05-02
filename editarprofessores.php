@@ -14,6 +14,7 @@
       $email = $_POST['email'];
       $telefone = filter_var($_POST['telefone'], FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES);
       $modalidade = filter_var($_POST['modalidade'], FILTER_SANITIZE_SPECIAL_CHARS);
+      $salario = $_POST['salario'];
 
       $id = mysqli_real_escape_string($connect, $id);
       $nome = mysqli_real_escape_string($connect, $nome);
@@ -23,8 +24,10 @@
       $email = mysqli_real_escape_string($connect, $email);
       $telefone = mysqli_real_escape_string($connect, $telefone);
       $modalidade = mysqli_real_escape_string($connect, $modalidade);
+      $salario = mysqli_real_escape_string($connect, $salario);
 
-      $sql_update = "UPDATE alunos set nome='$nome', sobrenome='$sobrenome', dataDeNascimento='$dataDeNascimento', cpf='$cpf', email='$email', telefone='$telefone', modalidade='$modalidade' WHERE id=$id";
+
+      $sql_update = "UPDATE professores set nome='$nome', sobrenome='$sobrenome', dataDeNascimento='$dataDeNascimento', cpf='$cpf', email='$email', telefone='$telefone', modalidade='$modalidade', salario='$salario' WHERE id=$id";
 
       $resultado = mysqli_query($connect, $sql_update);
 
@@ -34,7 +37,7 @@
       } else{
         $msg = array(
           'classe' => 'alert-success',
-          'mensagem' => 'Aluno editado com sucesso!'
+          'mensagem' => 'Professor editado com sucesso!'
         );
         header('Refresh:2; url=clientes.php');
       }
@@ -51,7 +54,7 @@
         throw new Exception('ID fornecido é inválido!');
       }
 
-      $sql_Select = "SELECT * FROM alunos WHERE id = $id";
+      $sql_Select = "SELECT * FROM professores WHERE id = $id";
       $result = mysqli_query($connect, $sql_Select);
 
       if (!$result || mysqli_errno($connect)) {
@@ -59,9 +62,9 @@
       }
 
       // Caso queira usar os indíces de forma numérica basta usar mysqli_fetch_array()
-      $aluno = mysqli_fetch_array($result);
+      $professor = mysqli_fetch_array($result);
 
-      if (!$aluno) {
+      if (!$professor) {
           throw new Exception('Dados do cliente não foram encontrados!');
       }
 
@@ -98,7 +101,7 @@
   ?>
 
   <section class="container bg-white cadastro py-4 my-3">
-    <h2 class="py-3">Editar Clientes</h2>
+    <h2 class="py-3">Editar Professor(a)</h2>
     
     <?php if ($msg) : ?>
       <div class="alert <?= $msg['classe'] ?>" role="alert">
@@ -106,71 +109,81 @@
       </div>
     <?php endif; ?>
 
-    <p>Utilize o formulário abaixo para editar ou atualizar os dados de um cliente:</p>
+    <p>Utilize o formulário abaixo para editar ou atualizar os dados de um(a) professor(a):</p>
     
     <div class="container bg-white">
       <form method="POST">
         <div class="mb-3 row-cols-2">
           <label for="" class="form-label">ID:</label>
-          <input type="text" class="form-control" value="<?= $aluno['id'] ?? '' ?>" name="id" id="id" readonly>
+          <input type="text" class="form-control" value="<?= $professor['id'] ?? '' ?>" name="id" id="id" readonly>
         </div>
-         <div class="mb-3 row">
+        <div class="mb-3 row">
             <div class="col">
               <label for="exampleInputEmail1" class="form-label">Nome</label>
-              <input type="text" class="form-control" name="nome" id="nome" value="<?= $aluno['nome'] ?? '' ?>"
+              <input type="text" class="form-control" name="nome" id="nome" value="<?= $professor['nome'] ?? '' ?>"
               aria-describedby="nome" placeholder="Nome" required>
             </div>
             <div class="col">
               <label for="exampleInputEmail1" class="form-label">Sobrenome</label>
-              <input type="text" class="form-control" name="sobrenome" id="sobrenome" 
-              aria-describedby="Sobrenome" placeholder="Sobrenome" value="<?= $aluno['sobrenome'] ?? '' ?>" required>
+              <input type="text" class="form-control" name="sobrenome" id="sobrenome" value="<?= $professor['sobrenome'] ?? '' ?>"
+              aria-describedby="Sobrenome" placeholder="Sobrenome" required>
             </div>
           </div>
           <div class="mb-3 row">
             <div class="col">
               <label for="" class="form-label">CPF</label>
-              <input type="text" class="form-control" id="cpf" aria-describedby="cpf" value="<?= $aluno['cpf'] ?? '' ?>"
-              placeholder="000.000.000-00" pattern="^(\d{3}\.\d{3}\.\d{3}-\d{2})|(\d{11})$" name="cpf" required>
+              <input type="text" class="form-control" id="cpf" aria-describedby="cpf" value="<?= $professor['cpf'] ?? '' ?>"
+              placeholder="000.000.000-00" pattern="^(\d{3}\.\d{3}\.\d{3}-\d{2})|(\d{11})$"  name="cpf">
               <div id="cpfMessage" class="pt-2"></div>
             </div>
             <div class="col">
               <label for="exampleInputEmail1" class="form-label">Data de Nascimento</label>
               <input type="date" class="form-control" id="dataDeNascimento" aria-describedby="nascimento" 
-              name="dataDeNascimento" value="<?= $aluno['dataDeNascimento'] ?? '' ?>" required>
+              name="dataDeNascimento" value="<?= $professor['dataDeNascimento'] ?? '' ?>" required>
               <div id="dateAlert" class="pt-2"></div>
             </div>
           </div>
           <div class="mb-3 row">
             <div class="col">
               <label for="exampleFormControlInput1" class="form-label">Email </label>
-              <input type="email" class="form-control" name="email" id="email" value="<?= $aluno['email'] ?? '' ?>"
+              <input type="email" class="form-control" name="email" id="email" value="<?= $professor['email'] ?? '' ?>"
               placeholder="nomeemail@email.com" pattern='\w*@\w*\.\w*\.?\w*' required>
             </div>
             <div class="col">
               <label for="exampleInputEmail1" class="form-label">Telefone</label>
-              <input type="tel" class="form-control" name="telefone" id="telefone" value="<?= $aluno['telefone'] ?? '' ?>"
+              <input type="tel" class="form-control" name="telefone" id="telefone" value="<?= $professor['telefone'] ?? '' ?>"
               aria-describedby="telefone" placeholder="(00) 000000000" maxlength="14" required>
             </div>
+          </div>
+          <div class="mb-3 row">
             <div class="col">
-              <label for="exampleInputEmail1" class="form-label">Modalidade</label>
-              <select class="form-select" id="modalidade" name="modalidade" aria-label="select" required>
-                <option selected value="<?= $aluno['modalidade'] ?? '' ?>"><?= $aluno['modalidade'] ?? '' ?></option>
-                <?php foreach ($lista_modalidades as $modalidade) : ?>
-                  <option value="<?= $modalidade['modalidade'] ?>"><?= $modalidade['modalidade'] ?></option>
-                <?php endforeach; ?> 
-              </select>
+              <div class="col">
+                <label for="exampleInputEmail1" class="form-label">Modalidade</label>
+                <select class="form-select" id="modalidade" name="modalidade" aria-label="select">
+                  <option selected value="<?= $professor['modalidade'] ?? '' ?>"><?= $professor['modalidade'] ?? '' ?></option>
+                  <?php foreach ($lista_modalidades as $modalidade) : ?>
+                    <option value="<?= $modalidade['modalidade'] ?>"><?= $modalidade['modalidade'] ?></option>
+                  <?php endforeach; ?> 
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <label for="" class="form-label">Salário</label>
+              <input class="form-control" type="text" name="salario" id="salario" value="<?= $professor['salario'] ?? '' ?>">
             </div>
           </div>
           <div class="mb-3 bg-white pb-4">
             <div class="float-start">
-              <button type="submit" class="btn btn-success btn-lg" name="enviar" id="enviar">
+              <button type="submit" class="btn btn-success" name="enviar" id="enviar">
                  Salvar
               </button>
             </div>
             <div class="float-end">
-              <a type="button" href="clientes.php" class="btn btn-danger btn-lg text-white text-decoration-none">Cancelar</a>
+              <button type="button" class="btn btn-danger ">
+                <a href="clientes.php" class="text-white text-decoration-none">Cancelar</a>
+              </button>
             </div>
-          </div>         
+          </div>      
       </form>
     </div>
   </section>

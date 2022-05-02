@@ -84,7 +84,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/e66da2c05e.js" crossorigin="anonymous"></script>
+
   <link rel="stylesheet" href="./assets/css/main.css">
   <title>Cadastro de Modalidades</title>
 </head>
@@ -169,13 +172,9 @@
                   <td><?= $modalidade['preco'] ?></td>
                   <td><?= $modalidade['cargaHoraria'] ?> horas</td>
                   <td><?= $modalidade['professor'] ?></td>
+
                   <td>
-                    <a href="" class="bt-lapis">
-                      <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
-                  </td>
-                  <td>
-                    <a href="modalidades.php?excluir=<?= $professor['id'] ?>" onclick="return confirm('Deseja mesmo deletar?');" class="bt-lixo" type="button" id="delete">
+                    <a href="modalidades.php?excluir=<?= $modalidade['id'] ?>" onclick="return confirm('Deseja mesmo deletar?');" class="bt-lixo" type="button" id="delete">
                       <i class="fa-solid fa-trash"></i>
                     </a>
                   </td>

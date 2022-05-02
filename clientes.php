@@ -3,6 +3,7 @@
   include './src/service/connect.php';
 
   $msg = array();
+  $alunoUpdate;
 
   //Listar
   $sql_search = "SELECT * FROM alunos";
@@ -11,6 +12,44 @@
   if($resultado){
     $lista_alunos = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
   }
+
+  //Update
+  try{
+    if($_POST){
+      $nome = filter_var($_POST['nome'], FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES);
+      $sobrenome = filter_var($_POST['sobrenome'], FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES);
+      $cpf = $_POST['cpf'];
+      $dataDeNascimento = $_POST['dataDeNascimento'];
+      $email = $_POST['email'];
+      $telefone = filter_var($_POST['telefone'], FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES);
+      $modalidade = filter_var($_POST['modalidade'], FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+      $nome = mysqli_real_escape_string($connect, $nome);
+      $sobrenome = mysqli_real_escape_string($connect, $sobrenome);
+      $cpf = mysqli_real_escape_string($connect, $cpf);
+      $dataDeNascimento = mysqli_real_escape_string($connect, $dataDeNascimento);
+      $email = mysqli_real_escape_string($connect, $email);
+      $telefone = mysqli_real_escape_string($connect, $telefone);
+      $modalidade = mysqli_real_escape_string($connect, $modalidade);
+
+      $sql_update = "UPDATE alunos set nome = '$nome', sobrenome = '$sobrenome', dataDeNascimento = '$dataDeNascimento', cpf = '$cpf', email = '$email', telefone = '$telefone', modalidade = '$modalidade' WHERE id = $id";
+
+      $resultado = mysqli_query($connect, $sql_update);
+
+      if (!$resultado ||  mysqli_errno($connect)) {
+        throw new Exception('Erro ao realizar operação no banco de dados: ' . $connect->error);
+        echo json_encode ('Erro!');
+      } 
+      
+      echo json_encode('Foi!');
+    }
+
+  } catch(Exception $ex){
+      echo $ex->getMessage();
+  }
+  
+
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +63,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/e66da2c05e.js" crossorigin="anonymous"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Clientes</title>
   </head>
 
@@ -81,7 +119,7 @@
                           <td><?= $aluno['telefone'] ?></td>
                           <td><?= $aluno['modalidade'] ?></td>
                           <td>
-                            <a type="button" href="editar.php?id=<?= $cliente['id'] ?>" class="bt-lapis">
+                            <a type="button" href="editar.php?id=<?= $aluno['id'] ?>" class="bt-lapis">
                               <i class="fa-solid fa-pen-to-square"></i>
                             </a>
                           </td>
@@ -101,6 +139,9 @@
     <?php
     include './assets/includes/footer.php';
     ?>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 
   </body>
 </html>
