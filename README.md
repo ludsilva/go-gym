@@ -36,5 +36,7 @@ Trata-se de um sistema de gestão de academias, que permite o cadastro e gerenci
 
 ## Desenvolvedores
 
-- Lêoncio Carlos Giarola
+- Lêoncio Carlos Giarola:
+    - Front-End Developer
 - Ludmila da Silva Pires
+    - Back-End Developer
