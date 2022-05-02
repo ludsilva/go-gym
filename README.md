@@ -33,3 +33,8 @@ Trata-se de um sistema de gestão de academias, que permite o cadastro e gerenci
 3. Cd no fork `cd go-gym`
    
 4. Crie uma `branch` para começar a trabalhar: `git checkout -b <branch_name>`
+
+## Desenvolvedores
+
+- Lêoncio Carlos Giarola
+- Ludmila da Silva Pires
