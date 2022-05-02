@@ -56,7 +56,7 @@
       if($resultado === false || mysqli_errno($connect)) {
         throw new Exception ('Erro ao realizar a exclusão no banco de dados: ' . mysqli_error($connect));
       } else {
-        header ('Location: http://localhost/projeto2/professores.php');
+        header ('Location: professores.php');
       }
     }
 

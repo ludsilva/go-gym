@@ -46,7 +46,7 @@
       if($resultado === false || mysqli_errno($connect)) {
         throw new Exception ('Erro ao realizar a exclusão no banco de dados: ' . mysqli_error($connect));
       } else {
-        header ('Location: http://localhost/projeto2/modalidades.php');
+        header ('Location: modalidades.php');
       }
     }
 
@@ -72,8 +72,6 @@
   if($resultadoProfessores){
      $lista_professores = mysqli_fetch_all($resultadoProfessores, MYSQLI_ASSOC);
   }
-
-  //Update
 
   
 ?>

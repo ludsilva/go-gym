@@ -39,7 +39,7 @@
           'classe' => 'alert-success',
           'mensagem' => 'Professor editado com sucesso!'
         );
-        header('Refresh:2; url=clientes.php');
+        header('Refresh:2; url=professores.php');
       }
     }
     

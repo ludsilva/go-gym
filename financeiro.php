@@ -30,7 +30,7 @@
         'classe' => 'alert-success',
         'mensagem' => 'Transação cadastrada com sucesso!'
       );
-      //header('Refresh:2; url=http://localhost/projeto2/financeiro.php');
+     
     }
   } catch(Exception $ex){
     $msg = array(
@@ -46,6 +46,15 @@
   if($resultado){
      $fluxoDeCx = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
   }
+
+  //Somas
+  /* $sqlSaida = "SELECT SUM(valor) as FROM financeiro WHERE tipo = Pagamento";
+  $sqlEntrada = "SELECT SUM(valor) FROM financeiro WHERE tipo = Mensalidade";
+
+  $resultadoSaida = mysqli_query($connect, $sqlSaida);
+  $resultadoEntrada = mysqli_query($connect, $sqlEntrada);
+
+  $total = $resultadoEntrada - $resultadoSaida; */
 
 ?>
 
