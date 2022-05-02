@@ -47,15 +47,6 @@
      $fluxoDeCx = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
   }
 
-  //Somas
-  /* $sqlSaida = "SELECT SUM(valor) as FROM financeiro WHERE tipo = Pagamento";
-  $sqlEntrada = "SELECT SUM(valor) FROM financeiro WHERE tipo = Mensalidade";
-
-  $resultadoSaida = mysqli_query($connect, $sqlSaida);
-  $resultadoEntrada = mysqli_query($connect, $sqlEntrada);
-
-  $total = $resultadoEntrada - $resultadoSaida; */
-
 ?>
 
 <!DOCTYPE html>
